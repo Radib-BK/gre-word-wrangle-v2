@@ -1021,16 +1021,16 @@ const FinalMessage = ({ gameState, selectedWordData, streak, startNewGame }) => 
   return (
     <div id="final-msg" className={`${styles.finalMsg} ${styles.visible} animate__animated visible`}>
       <p id="msg-info" className="msg-info"></p>
-      {gameState === 'won' && <p>Nice! You won. Keep the streak hot!</p>}
-      {gameState === 'lost' && <p>Oops! You lost. The right word is &quot;{selectedWordData?.word}&quot;</p>}
+      {gameState === 'won' && <p>You guessed &apos;<span className='text-green-500 text-2xl'>{selectedWordData?.word}</span>&apos; correctly! Keep the streak hot!</p>}
+      {gameState === 'lost' && <p>Oops! You lost. The right word is &apos;<span className='text-red-500 text-2xl'>{selectedWordData?.word}</span>&apos;</p>}
       <div className={styles.buttonContainer}>
         <button
           className={styles.share}
           onClick={() => {
             const shareData = {
               title: 'My GRE Word Wrangle Streak!',
-              text: `I just played GRE Word Wrangle and my streak is ${streak} words! Can you beat my score?`,
-              url: 'https://radib-bk.github.io/gre-word-wrangle/',
+              text: `My GRE Word Wrangle streak is ${streak} words! Can you beat my score?`,
+              url: 'https://wordwrangle.vercel.app/',
             };
 
             if (navigator.share) {

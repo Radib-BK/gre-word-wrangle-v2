@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
         <meta property="og:title" content="GRE Word Wrangle" />
         <meta property="og:description" content="Enhance Your GRE Preparation with Engaging and Interactive Vocabulary Challenges" />
         <meta property="og:image" content="/coverImg.png" />
-        <meta property="og:url" content="https://your-website-url.com" />
+        <meta property="og:url" content="https://wordwrangle.vercel.app" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="GRE Word Wrangle" />
         
@@ -39,7 +39,7 @@ export default function RootLayout({ children }) {
             "@context": "http://schema.org",
             "@type": "WebSite",
             "name": "GRE Word Wrangle",
-            "url": "https://your-website-url.com",
+            "url": "https://wordwrangle.vercel.app",
             "sameAs": [
               "https://www.facebook.com/Radib.bk",
               "https://www.linkedin.com/in/radib-kabir-21683021a/"
