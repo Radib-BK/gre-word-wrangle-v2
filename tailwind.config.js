@@ -12,6 +12,9 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      boxShadow: {
+        'key-yellow': '1px 1px 0px #E58918cc',
+      },
     },
   },
   plugins: [],

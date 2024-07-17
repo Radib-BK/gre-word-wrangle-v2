@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+
+body {
+    font-family: 'Rubik', sans-serif;
+    color: #fff;
+    background: linear-gradient(135deg, rgba(36, 16, 82, 0.8) 0%, rgba(31, 21, 55, 0.8) 10%), url('/bg_wave.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.container p {
+    font-family: monospace;
+    font-size: 2rem;
+    margin: 2rem 0;
+}
+
+#mainHead {
+    font-family: 'Righteous', 'Arial Narrow', Arial, sans-serif;
+    font-size: 8.5rem;
+    margin: 13rem 0 0rem;
+    display: inline-block;
+    background: linear-gradient(270deg,#ffffff, #959595, rgb(227, 213, 131), rgb(215, 183, 0), rgb(227, 213, 131), #8f8f8f, #ffffff);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientWave 8s ease infinite;
+  }
+
+#subHead {
+  font-size: 8rem;
+    font-family:monospace, 'Rubik', sans-serif;
+  color: #717090;
+  margin-bottom: 3rem;
+  min-height: 12rem;
+  position: relative;
+}
+
+.copyright {
+    position:relative;
+    bottom: 0px;
+    width: 100%;
+    padding: 1rem 0;
+    margin-top: 0px;
+    background-color: #47234d90;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555555;
+    opacity: 0.5;
+    z-index: 100;
+}
+
+
+@keyframes blink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+  
+#subHead .typed-cursor {
+    font-size: 3rem;
+    animation: blink 0.7s infinite;
+    margin-left: .5rem;
+    color: rgba(19, 173, 176, 0.72);
+}
+
+@keyframes gradientWave {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    html {
+        font-size: 50%;
+    }
+
+    #mainHead {
+        font-size: 8rem;
+        margin: 10rem 0 0rem;
+    }
+
+    #subHead {
+        font-size: 7rem;
+        margin-bottom: 4rem;
+    }
+
+    .container h1 {
+        margin-top: 5rem;
+        font-size: 3rem;
+    }
+
+    .container p {
+        font-size: 1.6rem;
+    }
+
+    .game-box {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 2rem 0rem 0rem;
+    }
+
+    .figure {
+        height: 19rem;
+        width: 16rem;
+    }
+
+    .content {
+        height: 18rem;
+    }
+
+    .word {
+        font-size: 2.4rem;
+        height: 60%;
+    }
+
+    .letter {
+        height: 3rem;
+        width: 2.5rem;
+        margin-right: 0.6rem;
+    }
+
+    .incorrect h2,
+    .incorrect p {
+        font-size: 1.6rem;
+    }
+
+    .final-msg {
+        height: 15rem;
+        padding: 1.5rem;
+    }
+
+    .final-msg p {
+        font-size: 1.6rem;
+    }
+
+    .final-msg .play {
+        font-size: 1.6rem;
+        font-weight: 700;
+        padding: 1rem;
+    }
+
+    .final-msg .share {
+        font-size: 1.6rem;
+        font-weight: 700;
+        padding: 1rem;
+    }
+
+    .indication p {
+        font-size: 1.4rem;
+    }
+
+    .keyboard {
+        display: block;
+        width: 100%;
+    }
+
+    .key {
+        font-size: 1.5rem;
+        padding: 0.8rem 1rem;
+        margin: 0.3rem;
+    }
+
+    .streak-counter {
+        top: 10px;
+        right: 10px;
+        font-size: 1.5rem;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 2px;
+        padding: 0.6rem 1rem;
+    }
+}
