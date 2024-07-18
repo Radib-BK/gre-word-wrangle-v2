@@ -6,6 +6,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'; // Import the Font Awesom
 import { config } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
+import { pipeline } from '@huggingface/inference';
 config.autoAddCss = false; // Prevent Font Awesome from adding its CSS since we are doing it manually
 
 const wordList = [
@@ -976,6 +977,14 @@ const wordList = [
   { word: 'zephyr', meaning: 'A slight wind (n)' }
 ];
 
+
+let sentimentPipeline;
+
+const loadModel = async () => {
+  sentimentPipeline = await pipeline('sentiment-analysis', 'distilbert-base-uncased-finetuned-sst-2-english');
+};
+
+
 const useStreak = () => {
   const [streak, setStreak] = useState(
     typeof window !== 'undefined' && localStorage.getItem('streak') ? parseInt(localStorage.getItem('streak')) : 0
@@ -1122,7 +1131,7 @@ const GREWordWrangle = () => {
 
   const failureState = useCallback(() => {
     setGameState('lost');
-    setStreak(0);
+    // setStreak(0);
   }, []);
 
   const check = useCallback((character) => {
@@ -1184,6 +1193,7 @@ const GREWordWrangle = () => {
   };
 
   const startNewGame = () => {
+    if (gameState === 'lost') setStreak(0);
     initializeWord();
   };
 
