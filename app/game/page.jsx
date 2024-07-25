@@ -1075,8 +1075,6 @@ const GREWordWrangle = () => {
   const [streak, setStreak] = useStreak();
   const [gameState, setGameState] = useState('playing');
   const [hintPressed, setHintPressed] = useState(false);
-  const [correctAudio] = useState(new Audio('/correct.mp3'));
-  const [incorrectAudio] = useState(new Audio('/incorrect.mp3'));
 
 
   useEffect(() => {
@@ -1165,64 +1163,67 @@ const GREWordWrangle = () => {
     // setStreak(0);
   }, []);
 
-  const check = useCallback((character) => {
-    if (gameState !== 'playing') return;
 
-    character = character.toLowerCase();
+const check = useCallback((character) => {
+  if (gameState !== 'playing') return;
 
-    console.log(`Checking character: ${character}`);
+  character = character.toLowerCase();
 
-    if (selectedWordData.word.includes(character)) {
-      if (!correctLetters.includes(character)) {
-        setCorrectLetters((prev) => {
-          const newCorrectLetters = [...prev, character];
-          if (selectedWordData.word.split('').every(letter => newCorrectLetters.includes(letter))) {
-            correctAudio.play().then(() => {
-              successState();
-            }).catch(err => {
-              console.log('Audio play prevented:', err);
-              successState(); // Call successState even if audio fails to play
-            });
-          }
-          return newCorrectLetters;
-        });
-      } else {
-        displayIndication('indication');
-      }
+  console.log(`Checking character: ${character}`);
+
+  if (selectedWordData.word.includes(character)) {
+    if (!correctLetters.includes(character)) {
+      setCorrectLetters((prev) => {
+        const newCorrectLetters = [...prev, character];
+        if (selectedWordData.word.split('').every(letter => newCorrectLetters.includes(letter))) {
+          const correctAudio = new Audio('/correct.mp3');
+          correctAudio.play().then(() => {
+            successState();
+          }).catch(err => {
+            console.log('Audio play prevented:', err);
+            successState(); // Call successState even if audio fails to play
+          });
+        }
+        return newCorrectLetters;
+      });
     } else {
-      if (!incorrectLetters.includes(character)) {
-        setIncorrectLetters((prev) => [...prev, character]);
-        setIncorrectCount((prevCount) => {
-          const newCount = prevCount + 1;
-          console.log(`Incorrect count updated: ${newCount}`);
-          if (newCount >= 5) {
-            incorrectAudio.play().then(() => {
-              failureState();
-            }).catch(err => {
-              console.log('Audio play prevented:', err);
-              failureState(); // Call failureState even if audio fails to play
-            });
-          }
-          return newCount;
-        });
-      } else {
-        displayIndication('indication');
-      }
+      displayIndication('indication');
     }
-  }, [selectedWordData, correctLetters, incorrectLetters, gameState, successState, failureState, correctAudio, incorrectAudio]);
+  } else {
+    if (!incorrectLetters.includes(character)) {
+      setIncorrectLetters((prev) => [...prev, character]);
+      setIncorrectCount((prevCount) => {
+        const newCount = prevCount + 1;
+        console.log(`Incorrect count updated: ${newCount}`);
+        if (newCount >= 5) {
+          const incorrectAudio = new Audio('/incorrect.mp3');
+          incorrectAudio.play().then(() => {
+            failureState();
+          }).catch(err => {
+            console.log('Audio play prevented:', err);
+            failureState(); // Call failureState even if audio fails to play
+          });
+        }
+        return newCount;
+      });
+    } else {
+      displayIndication('indication');
+    }
+  }
+}, [selectedWordData, correctLetters, incorrectLetters, gameState, successState, failureState]);
 
-  useEffect(() => {
-    const handleKeyPress = (e) => {
-      const character = e.key;
-      check(character);
-    };
+useEffect(() => {
+  const handleKeyPress = (e) => {
+    const character = e.key;
+    check(character);
+  };
 
-    document.addEventListener('keydown', handleKeyPress);
+  document.addEventListener('keydown', handleKeyPress);
 
-    return () => {
-      document.removeEventListener('keydown', handleKeyPress);
-    };
-  }, [check]);
+  return () => {
+    document.removeEventListener('keydown', handleKeyPress);
+  };
+}, [check]);
 
 
   useEffect(() => {
