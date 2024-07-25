@@ -6,7 +6,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'; // Import the Font Awesom
 import { config } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
-import { pipeline } from '@huggingface/inference';
+import { useRouter } from 'next/navigation';
 config.autoAddCss = false; // Prevent Font Awesome from adding its CSS since we are doing it manually
 
 const wordList = [
@@ -1028,6 +1028,7 @@ const GameBox = ({ selectedWordData, correctLetters, incorrectLetters, check, us
 };
 
 const FinalMessage = ({ gameState, selectedWordData, streak, startNewGame }) => {
+  const router = useRouter();
   if (gameState !== 'won' && gameState !== 'lost') return null;
   return (
     <div id="final-msg" className={`${styles.finalMsg} ${styles.visible} animate__animated visible`}>
@@ -1035,6 +1036,7 @@ const FinalMessage = ({ gameState, selectedWordData, streak, startNewGame }) => 
       {gameState === 'won' && <p>You guessed &apos;<span className='text-green-500 text-2xl'>{selectedWordData?.word}</span>&apos; correctly! Keep the streak hot!</p>}
       {gameState === 'lost' && <p>Oops! You lost. The right word is &apos;<span className='text-red-500 text-2xl'>{selectedWordData?.word}</span>&apos;</p>}
       <div className={styles.buttonContainer}>
+      <div className={styles.buttonContainer2}>  
         <button
           className={styles.share}
           onClick={() => {
@@ -1058,6 +1060,15 @@ const FinalMessage = ({ gameState, selectedWordData, streak, startNewGame }) => 
         >
           Share
         </button>
+        <button
+          className={styles.goHome}
+          onClick={() => {
+            router.push('/');
+          }}
+        >
+          Home
+        </button>
+      </div>
         <button id="play" className={styles.play} onClick={startNewGame}>
           Play Again
         </button>
@@ -1075,7 +1086,6 @@ const GREWordWrangle = () => {
   const [streak, setStreak] = useStreak();
   const [gameState, setGameState] = useState('playing');
   const [hintPressed, setHintPressed] = useState(false);
-
 
   useEffect(() => {
     initializeWord();

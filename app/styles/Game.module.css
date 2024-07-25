@@ -208,7 +208,7 @@
     z-index: 100;
     max-width: 40rem;
     width: 75%;
-    min-height: 35%;
+    min-height: 34%;
     max-height: 45%;
     padding: 2rem;
     line-height: 1.6;
@@ -233,10 +233,12 @@
 }
 
 .finalMsg .share,
-.finalMsg .play {
+.finalMsg .play,
+.finalMsg .goHome {
   font: inherit;
   font-size: 1.6rem;
-  padding: 1.2rem;
+  font-weight: 700;
+  padding: 1.1rem;
   cursor: pointer;
   margin-top: 1rem;
   background-color: #4f0080;
@@ -248,10 +250,19 @@
 }
 
 .finalMsg .play {
-  background-color: #249b00dc;
+  background-color: #27a900dc;
+}
+
+.finalMsg .share {
+  background-color: #00058f;
 }
 
 .finalMsg .share:hover {
+  color: #0018b1;
+  background-color: #ffffff;
+}
+
+.finalMsg .goHome:hover {
   color: #4f0080;
   background-color: #ffffff;
 }
@@ -268,9 +279,22 @@
   width: 100%;
 }
 
+.finalMsg .buttonContainer2 {
+  display: flex;
+  justify-content:space-between;
+  flex-direction: row;
+  align-items: center;
+  width: 80%;
+}
+
 .finalMsg .buttonContainer button {
   width: 80%;
   margin-bottom: 1rem;
+}
+
+.finalMsg .buttonContainer2 button {
+  width: 47%;
+  margin-bottom: 0.9rem;
 }
 
 .streakCounter {
@@ -430,14 +454,20 @@
 
   .finalMsg .play {
     font-size: 1.6rem;
-    font-weight: 700;
-    padding: 1rem;
+    font-weight: 500;
+    padding: 1.1rem;
+  }
+
+  .finalMsg .goHome {
+    font-size: 1.6rem;
+    font-weight: 500;
+    padding: 1.1rem;
   }
   
   .finalMsg .share {
     font-size: 1.6rem;
-    font-weight: 700;
-    padding: 1rem;
+    font-weight: 500;
+    padding: 1.1rem;
   }
   
   .indication p {
