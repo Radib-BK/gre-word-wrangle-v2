@@ -1,4 +1,7 @@
+// app/layout.jsx
 import './styles/globals.css';
+import { useMemo } from 'react';
+import BackgroundMusic from '../components/BackgroundMusic';
 
 export const metadata = {
   title: 'GRE Word Wrangle',
@@ -9,6 +12,15 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const audioTemplate = useMemo(() => (
+    <div>
+      <audio id="background-music" loop>
+        <source src="/space_bg.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  ), []);
+
   return (
     <html lang="en">
       <head>
@@ -49,6 +61,8 @@ export default function RootLayout({ children }) {
         </script>
       </head>
       <body>
+        {audioTemplate}
+        <BackgroundMusic />
         {children}
         <div className="copyright">
           &copy; Radib Bin Kabir 2024

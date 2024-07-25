@@ -1075,6 +1075,8 @@ const GREWordWrangle = () => {
   const [streak, setStreak] = useStreak();
   const [gameState, setGameState] = useState('playing');
   const [hintPressed, setHintPressed] = useState(false);
+  const [correctAudio] = useState(new Audio('/correct.mp3'));
+  const [incorrectAudio] = useState(new Audio('/incorrect.mp3'));
 
 
   useEffect(() => {
@@ -1165,17 +1167,22 @@ const GREWordWrangle = () => {
 
   const check = useCallback((character) => {
     if (gameState !== 'playing') return;
-  
+
     character = character.toLowerCase();
-  
+
     console.log(`Checking character: ${character}`);
-  
+
     if (selectedWordData.word.includes(character)) {
       if (!correctLetters.includes(character)) {
         setCorrectLetters((prev) => {
           const newCorrectLetters = [...prev, character];
           if (selectedWordData.word.split('').every(letter => newCorrectLetters.includes(letter))) {
-            successState();
+            correctAudio.play().then(() => {
+              successState();
+            }).catch(err => {
+              console.log('Audio play prevented:', err);
+              successState(); // Call successState even if audio fails to play
+            });
           }
           return newCorrectLetters;
         });
@@ -1185,11 +1192,16 @@ const GREWordWrangle = () => {
     } else {
       if (!incorrectLetters.includes(character)) {
         setIncorrectLetters((prev) => [...prev, character]);
-        setIncorrectCount((prevCount) => { // This call is now outside the nested callback
+        setIncorrectCount((prevCount) => {
           const newCount = prevCount + 1;
           console.log(`Incorrect count updated: ${newCount}`);
           if (newCount >= 5) {
-            failureState();
+            incorrectAudio.play().then(() => {
+              failureState();
+            }).catch(err => {
+              console.log('Audio play prevented:', err);
+              failureState(); // Call failureState even if audio fails to play
+            });
           }
           return newCount;
         });
@@ -1197,7 +1209,21 @@ const GREWordWrangle = () => {
         displayIndication('indication');
       }
     }
-  }, [selectedWordData, correctLetters, incorrectLetters, gameState, successState, failureState]);
+  }, [selectedWordData, correctLetters, incorrectLetters, gameState, successState, failureState, correctAudio, incorrectAudio]);
+
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      const character = e.key;
+      check(character);
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [check]);
+
 
   useEffect(() => {
     updateFigure();
