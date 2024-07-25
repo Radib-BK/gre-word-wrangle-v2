@@ -1,7 +1,7 @@
 // app/layout.jsx
 import './styles/globals.css';
 import { useMemo } from 'react';
-import BackgroundMusic from '../components/BackgroundMusic';
+import BackgroundMusic from '../components/BackGroundMusic';
 
 export const metadata = {
   title: 'GRE Word Wrangle',

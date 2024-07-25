@@ -2,7 +2,7 @@
 import styles from './styles/Home.module.css';
 import Link from 'next/link';
 import Typed from '@/components/Typed';
-import BackgroundMusic from '@/components/BackgroundMusic';
+import BackgroundMusic from '@/components/BackGroundMusic';
 
 export default function Home() {
   return (
