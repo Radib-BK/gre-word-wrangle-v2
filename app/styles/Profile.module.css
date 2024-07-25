@@ -1,0 +1,137 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+.container {
+  height: 100vh;
+  padding: 20px;
+  margin: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.instructionsHeading {
+  font-family: 'Righteous', 'Arial Narrow', Arial, sans-serif;
+  font-size: 4rem;
+  margin: 3rem auto 2rem;
+  background: linear-gradient(270deg, #c0c0c0, rgb(227, 213, 131), rgb(215, 183, 0), #d3d3d3, #a9a9a9, #ffffff);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientWave 8s ease infinite;
+}
+
+.streakContainer {
+  margin: 20px 0;
+  font-size: 1.5rem;
+}
+
+.streak {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4CAF50; /* Green color for the streak */
+}
+
+.tableContainer {
+  margin: 20px 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.homeBtn {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.7rem;
+    color: #fff;
+    background: linear-gradient(135deg, #6a0dad, #8a2be2);
+    border: 2px solid #560869;
+    border-radius: 8px;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    min-width: 20rem;
+    max-width: 100%;
+    margin: 4rem auto;
+    z-index: 1;
+    text-align: center;
+  }
+  
+  .homeBtn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(0, 255, 255, 0.5), rgba(0, 255, 255, 0));
+    transition: all 0.4s;
+    z-index: -1;
+  }
+  
+  .homeBtn:hover::before {
+    left: 100%;
+  }
+  
+  .homeBtn:hover {
+    background: linear-gradient(135deg, #00ffff, #00ced1);
+    color: #000;
+  }
+  
+  @keyframes gradientWave {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .instructionsHeading {
+      font-size: 3rem;
+      margin-top: 3rem;
+    }
+  
+    .instructionsText .instructionCard p {
+      font-size: 1.5rem;
+    }
+  
+    .homeBtn {
+      width: 100%;
+      font-size: 1.5rem;
+    }
+  }
+  
