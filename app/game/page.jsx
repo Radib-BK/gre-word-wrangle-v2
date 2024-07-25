@@ -1243,7 +1243,13 @@ useEffect(() => {
     setCorrectLetters(newCorrectLetters)
       // Check if the user has won after using the hint
   if (selectedWordData.word.split('').every(letter => newCorrectLetters.includes(letter))) {
-    successState();
+    const correctAudio = new Audio('/correct.mp3');
+    correctAudio.play().then(() => {
+      successState();
+    }).catch(err => {
+      console.log('Audio play prevented:', err);
+      successState(); // Call successState even if audio fails to play
+    });
   }
   setHintPressed(true); // Change state to indicate hint button is pressed
   };
