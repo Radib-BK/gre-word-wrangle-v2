@@ -34,7 +34,7 @@ export default function Profile() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Image src="/loading.gif" alt="Loading..." width={200} height={200} className="h-auto w-auto" />
+        <Image src="/loading.gif" alt="Loading..." width={120} height={120} />
       </div>
     );
   }
@@ -79,10 +79,17 @@ export default function Profile() {
       </div>
 
       <Link href="/">
-        <button className={styles.homeBtn}>
-          Back to Home
-        </button>
-      </Link>
+          <button className={styles.homeBtn}>
+            <span className={styles.buttonText}>Back</span>
+            <Image 
+              src="/btnload.gif" 
+              alt="Loading" 
+              width={45} 
+              height={45} 
+              className={styles.loadingGif}
+            />
+          </button>
+        </Link>
     </div>
   );
 }

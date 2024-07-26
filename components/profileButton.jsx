@@ -34,7 +34,7 @@ const ProfileButton = () => {
         opacity: 0,
         duration: 0.5,
         ease: 'power2.in',
-        delay: 5
+        delay: 4
       });
     }
   }, []);

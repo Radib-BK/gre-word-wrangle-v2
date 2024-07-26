@@ -70,7 +70,9 @@
 
 .homeBtn:hover {
   background: linear-gradient(135deg, #00ffff, #13adb0);
-  color: #000;
+  .buttonText{
+    color: black;
+  }
 }
 
 .copyright {
@@ -88,6 +90,37 @@
   100% {
     background-position: 0% 50%;
   }
+}
+
+.homeBtn {
+  /* Your existing button styles */
+  position: relative;
+  overflow: hidden;
+}
+
+.loadingGif {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.buttonText {
+  font-weight: 700;
+  font-size: 2rem;
+  color: #fff;
+  transition: opacity 0.3s;
+}
+
+
+.homeBtn:active .loadingGif {
+  opacity: 1;
+}
+
+.homeBtn:active .buttonText {
+  opacity: 0;
 }
 
 @keyframes fadeIn {

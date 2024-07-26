@@ -3,6 +3,7 @@ import Link from 'next/link';
 import '@fortawesome/fontawesome-svg-core/styles.css'; // Import the Font Awesome styles
 import { config } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
 import { faQuestion, faKeyboard, faTimes, faUserShield, faLightbulb, faTrophy } from '@fortawesome/free-solid-svg-icons';
 
 config.autoAddCss = false; // Prevent Font Awesome from adding its CSS since we are doing it manually
@@ -38,8 +39,17 @@ export default function Instructions() {
         </div>
       </div>
       <Link href="/">
-        <button className={styles.homeBtn}>Back to Home</button>
-      </Link>
+          <button className={styles.homeBtn}>
+            <span className={styles.buttonText}>Back</span>
+            <Image 
+              src="/btnload.gif" 
+              alt="Loading" 
+              width={45} 
+              height={45} 
+              className={styles.loadingGif}
+            />
+          </button>
+        </Link>
     </div>
   );
 }
