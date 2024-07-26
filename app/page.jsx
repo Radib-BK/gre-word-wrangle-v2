@@ -2,7 +2,7 @@ import styles from './styles/Home.module.css';
 import Link from 'next/link';
 import Typed from '@/components/Typed';
 import BackgroundMusic from '@/components/BackGroundMusic';
-import ProfileButton from '@/components/ProfileButton';
+import ProfileButton from '@/components/ProfileButton'; //fix
 
 export default function Home() {
   return (
