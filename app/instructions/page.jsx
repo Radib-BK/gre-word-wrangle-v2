@@ -4,6 +4,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'; // Import the Font Awesom
 import { config } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
+import LoadingButton2 from '@/components/LoadingButton2';
 import { faQuestion, faKeyboard, faTimes, faUserShield, faLightbulb, faTrophy } from '@fortawesome/free-solid-svg-icons';
 
 config.autoAddCss = false; // Prevent Font Awesome from adding its CSS since we are doing it manually
@@ -38,18 +39,7 @@ export default function Instructions() {
           <p>Try to keep the streak counter increasing by guessing words correctly in each round!</p>
         </div>
       </div>
-      <Link href="/">
-          <button className={styles.homeBtn}>
-            <span className={styles.buttonText}>Back</span>
-            <Image 
-              src="/btnload.gif" 
-              alt="Loading" 
-              width={45} 
-              height={45} 
-              className={styles.loadingGif}
-            />
-          </button>
-        </Link>
+      <LoadingButton2 href="/" text="Back" />
     </div>
   );
 }

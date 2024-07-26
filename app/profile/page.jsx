@@ -4,6 +4,7 @@ import styles from '../styles/Profile.module.css';
 import Link from 'next/link';
 import axios from 'axios';
 import Image from 'next/image';
+import LoadingButton2 from '@/components/LoadingButton2';
 
 export default function Profile() {
   const [highestStreak, setHighestStreak] = useState(0);
@@ -78,18 +79,8 @@ export default function Profile() {
         </table>
       </div>
 
-      <Link href="/">
-          <button className={styles.homeBtn}>
-            <span className={styles.buttonText}>Back</span>
-            <Image 
-              src="/btnload.gif" 
-              alt="Loading" 
-              width={45} 
-              height={45} 
-              className={styles.loadingGif}
-            />
-          </button>
-        </Link>
+      <LoadingButton2 href="/" text="Back" />
+
     </div>
   );
 }

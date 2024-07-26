@@ -1,9 +1,8 @@
 import styles from './styles/Home.module.css';
-import Link from 'next/link';
-import Image from 'next/image';
 import Typed from '@/components/Typed';
 import BackgroundMusic from '@/components/BackGroundMusic';
 import ProfileButton from '@/components/profileButton';
+import LoadingButton from '@/components/LoadingButton';
 
 export default function Home() {
   return (
@@ -17,30 +16,8 @@ export default function Home() {
       </h1>
       <Typed />
       <div className={styles.buttons}>
-        <Link href="/game">
-          <button className={styles.homeBtn}>
-            <span className={styles.buttonText}>Play Game</span>
-            <Image 
-              src="/btnload.gif" 
-              alt="Loading" 
-              width={50} 
-              height={50} 
-              className={styles.loadingGif}
-            />
-          </button>
-        </Link>
-        <Link href="/instructions">
-          <button className={styles.homeBtn}>
-            <span className={styles.buttonText}>Instructions</span>
-            <Image 
-              src="/btnload.gif" 
-              alt="Loading" 
-              width={50} 
-              height={50} 
-              className={styles.loadingGif}
-            />
-          </button>
-        </Link>
+        <LoadingButton href="/game" text="Play Game" />
+        <LoadingButton href="/instructions" text="Instructions" />
       </div>
     </div>
   );
