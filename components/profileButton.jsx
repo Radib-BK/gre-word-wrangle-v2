@@ -34,19 +34,19 @@ const ProfileButton = () => {
         opacity: 0,
         duration: 0.5,
         ease: 'power2.in',
-        delay: 4
+        delay: 3
       });
     }
   }, []);
 
   return (
     <div className="relative">
-      <div className="absolute top-10 right-6 flex items-center">
+      <div className="absolute top-8 right-6 flex items-center">
         <div
           ref={sliderRef}
           className="absolute right-full bg-white text-purple-700 py-1 px-10 rounded-l-full whitespace-nowrap z-0"
         >
-          <p className='text-[18.5px] font-roboto font-semibold'>Profile</p>
+          <p className='text-[16px] md:text-[18.5px] font-roboto font-semibold'>Profile</p>
         </div>
         <Link href="/profile">
           <button

@@ -3,6 +3,7 @@ import Typed from '@/components/Typed';
 import BackgroundMusic from '@/components/BackGroundMusic';
 import ProfileButton from '@/components/profileButton';
 import LoadingButton from '@/components/LoadingButton';
+import DonateButton from '@/components/DonateButton';
 
 export default function Home() {
   return (
@@ -10,6 +11,9 @@ export default function Home() {
       <BackgroundMusic />
       <div className="absolute top-8 right-6">
         <ProfileButton />
+      </div>
+      <div className="absolute top-8 left-6">
+        <DonateButton />
       </div>
       <h1 id="mainHead" className="animate__animated animate__bounceInDown">
         GRE Word Wrangle
