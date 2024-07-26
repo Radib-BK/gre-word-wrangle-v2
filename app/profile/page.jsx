@@ -13,7 +13,10 @@ export default function Profile() {
   useEffect(() => {
     const fetchUserData = async () => {
       const userId = localStorage.getItem('userId');
-      if (!userId) return;
+      if (!userId) {
+        setLoading(false); // No userId, stop loading
+        return;
+      }
       try {
         const { data } = await axios.get(`/api/getUser?userId=${userId}`);
         setHighestStreak(data.highestStreak);
