@@ -44,6 +44,13 @@ export default function RootLayout({ children }) {
         <meta property="article:published_time" content="2024-01-01T12:00:00Z" />
         <meta property="article:modified_time" content="2024-01-01T12:00:00Z" />
 
+        {/* Apple Touch Icon and Web App Settings */}
+        <link rel="apple-touch-icon" href="/iconshangman.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="GRE Word Wrangle" />
+        <link rel="apple-touch-startup-image" href="/iconshangman.png" />
+
         {/* Schema Markup */}
         <script type="application/ld+json">
           {`
