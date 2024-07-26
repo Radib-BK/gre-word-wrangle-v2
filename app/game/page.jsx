@@ -1,12 +1,14 @@
 'use client'
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import styles from '../styles/Game.module.css';
 import '@fortawesome/fontawesome-svg-core/styles.css'; // Import the Font Awesome styles
 import { config } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
+
 config.autoAddCss = false; // Prevent Font Awesome from adding its CSS since we are doing it manually
 
 const wordList = [
@@ -1063,6 +1065,9 @@ const FinalMessage = ({ gameState, selectedWordData, streak, startNewGame }) => 
         <button
           className={styles.goHome}
           onClick={() => {
+            if(gameState === 'lost'){
+              localStorage.setItem('streak', 0);
+            }
             router.push('/');
           }}
         >
@@ -1086,10 +1091,31 @@ const GREWordWrangle = () => {
   const [streak, setStreak] = useStreak();
   const [gameState, setGameState] = useState('playing');
   const [hintPressed, setHintPressed] = useState(false);
+  const [highestStreak, setHighestStreak] = useState(0);
+  const hasUpdatedRef = useRef(false); // Use ref instead of state for hasUpdated
+
+
+  const fetchUserData = async () => {
+    try {
+      const userId = localStorage.getItem('userId');
+      if (!userId) return;
+      const { data } = await axios.get(`/api/getUser?userId=${userId}`);
+      setHighestStreak(data.highestStreak);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
 
   useEffect(() => {
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+      userId = 'user-' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('userId', userId);
+    }
     initializeWord();
-  }, []);
+    fetchUserData();
+  },[]);
+
 
   const resetHangmanSVG = () => {
     const bodyParts = document.getElementsByClassName(styles.bodyPart);
@@ -1126,13 +1152,16 @@ const GREWordWrangle = () => {
     }    
 
     const selectedWord = wordListToUse[Math.floor(Math.random() * wordListToUse.length)];
-    const selectedWordData = wordList.find(wordObj => wordObj.word === selectedWord);
-  
-    setSelectedWordData(selectedWordData);
+    const selectedWordObj = wordList.find(wordObj => wordObj.word === selectedWord);
+    
+    console.log(selectedWordObj);
+
+    setSelectedWordData(selectedWordObj);
     setCorrectLetters([]);
     setIncorrectLetters([]);
     setIncorrectCount(0);
     setUsedHint(false);
+    hasUpdatedRef.current = false; // Reset the ref when initializing a new word
     setGameState('playing');
     resetHangmanSVG();
     setHintPressed(false); // Reset hintPressed state
@@ -1152,7 +1181,7 @@ const GREWordWrangle = () => {
   const updateFigure = useCallback(() => {
     const bodyParts = document.getElementsByClassName(styles.bodyPart);
     if (bodyParts[incorrectCount]) {
-      console.log('Displaying body part at index: ', incorrectCount);
+      // console.log('Displaying body part at index: ', incorrectCount);
       bodyParts[incorrectCount].style.display = 'block';
       bodyParts[incorrectCount].classList.add('animate__animated', 'animate__fadeIn');
     }
@@ -1161,17 +1190,34 @@ const GREWordWrangle = () => {
   const successState = useCallback(() => {
     setGameState('won');
     setStreak(streak + 1);
+    if (streak > highestStreak) {
+      setHighestStreak(streak);
+      const userId = localStorage.getItem('userId');
+      axios.post('/api/updateUser', { userId, highestStreak: streak });
+      console.log("2nd update called");
+    }
     setIncorrectCount((prevCount) => { // This call is now outside the nested callback
       const newCount = prevCount + 1;
-      console.log(`Incorrect count updated: ${newCount}`);
+      // console.log(`Incorrect count updated: ${newCount}`);
       return newCount;
     });
   }, [streak]);
 
+
   const failureState = useCallback(() => {
-    setGameState('lost');
-    // setStreak(0);
-  }, []);
+    if (!hasUpdatedRef.current) {
+      setGameState('lost');
+      hasUpdatedRef.current = true;
+      console.log(hasUpdatedRef.current);
+      const userId = localStorage.getItem('userId');
+      axios.post('/api/updateUser', { userId, highestStreak: streak, wrongGuess: { word: selectedWordData?.word, meaning: selectedWordData?.meaning } })
+        .then(() => {
+          console.log("first update called", hasUpdatedRef.current);
+        })
+        .catch(error => console.error('Error updating user:', error));
+    }
+  }, [selectedWordData, streak]);
+  
 
 
 const check = useCallback((character) => {
@@ -1179,7 +1225,7 @@ const check = useCallback((character) => {
 
   character = character.toLowerCase();
 
-  console.log(`Checking character: ${character}`);
+  // console.log(`Checking character: ${character}`);
 
   if (selectedWordData.word.includes(character)) {
     if (!correctLetters.includes(character)) {
@@ -1204,7 +1250,7 @@ const check = useCallback((character) => {
       setIncorrectLetters((prev) => [...prev, character]);
       setIncorrectCount((prevCount) => {
         const newCount = prevCount + 1;
-        console.log(`Incorrect count updated: ${newCount}`);
+        // console.log(`Incorrect count updated: ${newCount}`);
         if (newCount >= 5) {
           const incorrectAudio = new Audio('/incorrect.mp3');
           incorrectAudio.play().then(() => {
@@ -1221,19 +1267,6 @@ const check = useCallback((character) => {
     }
   }
 }, [selectedWordData, correctLetters, incorrectLetters, gameState, successState, failureState]);
-
-useEffect(() => {
-  const handleKeyPress = (e) => {
-    const character = e.key;
-    check(character);
-  };
-
-  document.addEventListener('keydown', handleKeyPress);
-
-  return () => {
-    document.removeEventListener('keydown', handleKeyPress);
-  };
-}, [check]);
 
 
   useEffect(() => {
@@ -1266,6 +1299,7 @@ useEffect(() => {
 
   const startNewGame = () => {
     if (gameState === 'lost') setStreak(0);
+    hasUpdatedRef.current = false; // Reset the ref when initializing a new word
     initializeWord();
   };
 

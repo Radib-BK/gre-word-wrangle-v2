@@ -2,13 +2,7 @@
 import { useEffect, useState } from 'react';
 import styles from '../styles/Profile.module.css';
 import Link from 'next/link';
-import '@fortawesome/fontawesome-svg-core/styles.css'; // Import the Font Awesome styles
-import { config } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-
-config.autoAddCss = false; // Prevent Font Awesome from adding its CSS since we are doing it manually
 
 export default function Profile() {
   const [highestStreak, setHighestStreak] = useState(0);
@@ -16,7 +10,9 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const { data } = await axios.get('/api/getUser');
+      const userId = localStorage.getItem('userId');
+      if (!userId) return;
+      const { data } = await axios.get(`/api/getUser?userId=${userId}`);
       setHighestStreak(data.highestStreak);
       setWrongGuesses(data.wrongGuesses);
     };
@@ -25,28 +21,30 @@ export default function Profile() {
   }, []);
 
   return (
-    <div className={`animate__animated animate__fadeIn ${styles.container}`}>
+    <div className="min-h-screen flex flex-col items-center justify-center animate__animated animate__fadeIn p-4" style={{ fontFamily: "sans-serif" }}>
       <h1 className={styles.instructionsHeading}>PROFILE INFO</h1>
 
-      <div className={styles.streakContainer}>
-        <h2>Highest Streak</h2>
-        <p className={styles.streak}>{highestStreak}</p>
+      <div className="bg-white flex rounded-full shadow-lg px-10 py-0.5 mb-6 text-center transform hover:scale-105 transition-all duration-300 md:border-4 border-[3.5px] border-orange-400 animate-pulse-slow">
+        <p className="text-[16px] md:text-[18px] pt-[2.5px] md:pt-[5px] font-bold text-gray-700">HIGHEST STREAK </p>
+        <p className="text-[20px] md:text-[25px] font-bold text-orange-600 ml-3">{highestStreak}</p>
       </div>
 
-      <div className={styles.tableContainer}>
-        <h2>Recent Wrong Guesses</h2>
-        <table className={styles.table}>
+      <div className="bg-purple-50 rounded-lg shadow-lg p-4 min-w-[95%] md:min-w-[85%] lg:min-w-[70%]">
+        <h2 className="text-4xl font-semibold text-indigo-900 mb-4 p-4 text-center bg-purple-200">RECENT WRONG GUESSES</h2>
+        <table className="min-w-full bg-white border border-gray-100 rounded-lg" style={{ fontFamily: "'Rubik'"}}>
           <thead>
-            <tr>
-              <th>Word</th>
-              <th>Meaning</th>
+            <tr className="text-gray-900 lg:text-4xl text-[24px]">
+              <th className="py-2 px-4 border-b border-gray-200">#</th>
+              <th className="py-2 px-4 border-b border-gray-200 text-left">Word</th>
+              <th className="py-2 px-4 border-b border-gray-200 text-left">Meaning</th>
             </tr>
           </thead>
           <tbody>
             {wrongGuesses.map((guess, index) => (
-              <tr key={index}>
-                <td>{guess.word}</td>
-                <td>{guess.meaning}</td>
+              <tr key={index} className="text-gray-800 lg:text-4xl text-[20px] odd:bg-gray-100 even:bg-white">
+                <td className="py-2 px-4 border-b border-gray-100 text-center">{index + 1}</td>
+                <td className="py-2 px-4 border-b text-blue-900 font-semibold border-gray-100 text-left">{guess.word}</td>
+                <td className="py-2 px-4 border-b border-gray-100 text-left">{guess.meaning}</td>
               </tr>
             ))}
           </tbody>
@@ -55,7 +53,7 @@ export default function Profile() {
 
       <Link href="/">
         <button className={styles.homeBtn}>
-          <FontAwesomeIcon icon={faHome} /> Back to Home
+          Back to Home
         </button>
       </Link>
     </div>
