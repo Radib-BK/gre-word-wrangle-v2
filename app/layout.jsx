@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
         {/* Open Graph Meta Tags */}
         <meta property="og:title" content="GRE Word Wrangle" />
         <meta property="og:description" content="Enhance Your GRE Preparation with Engaging and Interactive Vocabulary Challenges" />
-        <meta property="og:image" content="/coverImg.png" />
+        <meta property="og:image" content="/coverImg.jpg" />
         <meta property="og:url" content="https://wordwrangle.vercel.app" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="GRE Word Wrangle" />
