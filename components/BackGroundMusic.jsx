@@ -10,7 +10,7 @@ const BackgroundMusic = () => {
         audioElement.muted = false;
         audioElement.volume = 0.2;
         audioElement.play().catch(err => {
-            console.log('Autoplay prevented:', err);
+            // console.log('Autoplay prevented:', err);
         });
     }
 };
@@ -19,7 +19,7 @@ if (audioElement) {
     audioElement.muted = true;
     audioElement.volume = 0.2;
       audioElement.play().catch(err => {
-        console.log('Autoplay prevented:', err);
+        // console.log('Autoplay prevented:', err);
       });
 
       document.addEventListener('click', unmuteAudio);

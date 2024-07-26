@@ -9,7 +9,7 @@ export async function POST(req) {
 
   try {
     let user = await User.findOne({ userId });
-    console.log('User:', user , 'userId:', userId, 'highestStreak:', highestStreak, 'wrongGuess:', wrongGuess);
+    // console.log('User:', user , 'userId:', userId, 'highestStreak:', highestStreak, 'wrongGuess:', wrongGuess);
 
     if (!user) {
       user = new User({ userId, highestStreak: highestStreak || 0 });

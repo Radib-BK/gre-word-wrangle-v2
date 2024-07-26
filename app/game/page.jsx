@@ -1154,7 +1154,7 @@ const GREWordWrangle = () => {
     const selectedWord = wordListToUse[Math.floor(Math.random() * wordListToUse.length)];
     const selectedWordObj = wordList.find(wordObj => wordObj.word === selectedWord);
     
-    console.log(selectedWordObj);
+    // console.log(selectedWordObj);
 
     setSelectedWordData(selectedWordObj);
     setCorrectLetters([]);
@@ -1194,7 +1194,7 @@ const GREWordWrangle = () => {
       setHighestStreak(streak);
       const userId = localStorage.getItem('userId');
       axios.post('/api/updateUser', { userId, highestStreak: streak });
-      console.log("2nd update called");
+      // console.log("2nd update called");
     }
     setIncorrectCount((prevCount) => { // This call is now outside the nested callback
       const newCount = prevCount + 1;
@@ -1208,11 +1208,11 @@ const GREWordWrangle = () => {
     if (!hasUpdatedRef.current) {
       setGameState('lost');
       hasUpdatedRef.current = true;
-      console.log(hasUpdatedRef.current);
+      // console.log(hasUpdatedRef.current);
       const userId = localStorage.getItem('userId');
       axios.post('/api/updateUser', { userId, highestStreak: streak, wrongGuess: { word: selectedWordData?.word, meaning: selectedWordData?.meaning } })
         .then(() => {
-          console.log("first update called", hasUpdatedRef.current);
+          // console.log("first update called", hasUpdatedRef.current);
         })
         .catch(error => console.error('Error updating user:', error));
     }
@@ -1236,7 +1236,7 @@ const check = useCallback((character) => {
           correctAudio.play().then(() => {
             successState();
           }).catch(err => {
-            console.log('Audio play prevented:', err);
+            // console.log('Audio play prevented:', err);
             successState(); // Call successState even if audio fails to play
           });
         }
@@ -1256,7 +1256,7 @@ const check = useCallback((character) => {
           incorrectAudio.play().then(() => {
             failureState();
           }).catch(err => {
-            console.log('Audio play prevented:', err);
+            // console.log('Audio play prevented:', err);
             failureState(); // Call failureState even if audio fails to play
           });
         }
@@ -1290,7 +1290,7 @@ const check = useCallback((character) => {
     correctAudio.play().then(() => {
       successState();
     }).catch(err => {
-      console.log('Audio play prevented:', err);
+      // console.log('Audio play prevented:', err);
       successState(); // Call successState even if audio fails to play
     });
   }
