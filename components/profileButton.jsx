@@ -41,7 +41,7 @@ const ProfileButton = () => {
 
   return (
     <div className="relative">
-      <div className="absolute top-6 right-6 flex items-center">
+      <div className="absolute top-10 right-6 flex items-center">
         <div
           ref={sliderRef}
           className="absolute right-full bg-white text-purple-700 py-1 px-10 rounded-l-full whitespace-nowrap z-0"

@@ -8,18 +8,33 @@ import Image from 'next/image';
 export default function Profile() {
   const [highestStreak, setHighestStreak] = useState(0);
   const [wrongGuesses, setWrongGuesses] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     const fetchUserData = async () => {
       const userId = localStorage.getItem('userId');
       if (!userId) return;
-      const { data } = await axios.get(`/api/getUser?userId=${userId}`);
-      setHighestStreak(data.highestStreak);
-      setWrongGuesses(data.wrongGuesses);
+      try {
+        const { data } = await axios.get(`/api/getUser?userId=${userId}`);
+        setHighestStreak(data.highestStreak);
+        setWrongGuesses(data.wrongGuesses);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false); // Set loading to false once data is fetched
+      }
     };
 
     fetchUserData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Image src="/loading.gif" alt="Loading..." width={200} height={200} className="h-auto w-auto" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center animate__animated animate__fadeIn p-4" style={{ fontFamily: "sans-serif" }}>

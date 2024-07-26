@@ -310,7 +310,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   font-family: 'Poppins', sans-serif;
   text-transform: uppercase;
-  z-index: 100;
+  z-index: 20;
   transform: skew(-4deg);
   border: 2px solid #000000;
 }

@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <BackgroundMusic />
-      <div className="absolute top-2 right-4">
+      <div className="absolute top-8 right-6">
       <ProfileButton />
       </div>
       <h1 id="mainHead" className="animate__animated animate__bounceInDown">

@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import Backdrop from '@/components/BackDrop';
 
 config.autoAddCss = false; // Prevent Font Awesome from adding its CSS since we are doing it manually
 
@@ -1033,6 +1034,8 @@ const FinalMessage = ({ gameState, selectedWordData, streak, startNewGame }) => 
   const router = useRouter();
   if (gameState !== 'won' && gameState !== 'lost') return null;
   return (
+    <>
+      <Backdrop/>
     <div id="final-msg" className={`${styles.finalMsg} ${styles.visible} animate__animated visible`}>
       <p id="msg-info" className="msg-info"></p>
       {gameState === 'won' && <p>You guessed &apos;<span className='text-green-500 text-2xl'>{selectedWordData?.word}</span>&apos; correctly! Keep the streak hot!</p>}
@@ -1079,6 +1082,7 @@ const FinalMessage = ({ gameState, selectedWordData, streak, startNewGame }) => 
         </button>
       </div>
     </div>
+    </>
   );
 };
 
