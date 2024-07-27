@@ -66,12 +66,10 @@
     overflow: hidden;
   }
   
-  .loadingGif {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.3s;
+  .loadingSpinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .buttonText {

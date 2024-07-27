@@ -106,6 +106,12 @@
   transition: opacity 0.3s;
 }
 
+.loadingSpinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .buttonText {
   font-weight: 700;
   font-size: 2rem;

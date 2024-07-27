@@ -1,8 +1,7 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import styles from '../app/styles/Home.module.css';
 
 export default function LoadingButton({ href, text }) {
@@ -15,17 +14,18 @@ export default function LoadingButton({ href, text }) {
   return (
     <Link href={href}>
       <button className={styles.homeBtn} onClick={handleClick} disabled={isLoading}>
-        {isLoading ? (
-          <Image 
-            src="/btnload.gif" 
-            alt="Loading" 
-            width={25} 
-            height={25}
-            className='m-auto' 
-          />
-        ) : (
-          <span className={styles.buttonText}>{text}</span>
-        )}
+      {isLoading ? (
+        <div className={styles.loadingSpinner}>
+          <svg width="26" height="26" viewBox="0 0 50 50">
+            <circle cx="26" cy="26" r="21" fill="none" stroke="#0000cd" strokeWidth="5" strokeDasharray="31.4 31.4" strokeLinecap="round">
+              <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="0.75s" from="0 25 25" to="360 25 25" />
+            </circle>
+          </svg>
+        </div>
+      ) : (
+        <span className={styles.buttonText}>{text}</span>
+      )}
+
       </button>
     </Link>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
@@ -13,6 +13,11 @@ config.autoAddCss = false;
 const ProfileButton = () => {
   const sliderRef = useRef(null);
   const buttonRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleClick = () => {
+    setIsLoading(true);
+  };
 
   useEffect(() => {
     const slider = sliderRef.current;
@@ -53,8 +58,18 @@ const ProfileButton = () => {
             ref={buttonRef}
             aria-label="profile"
             className="bg-white text-purple-700 rounded-full p-[4px] hover:bg-purple-200 transition-colors duration-300 relative z-10"
+            onClick={handleClick}
+            disabled={isLoading}
           >
-            <FontAwesomeIcon className="text-6xl" icon={faUserCircle} />
+            {isLoading ? (
+              <svg width="25" height="25" viewBox="0 0 50 50">
+              <circle cx="25" cy="25" r="20" fill="none" stroke="#0000cd" strokeWidth="5" strokeDasharray="31.4 31.4" strokeLinecap="round">
+                <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="0.75s" from="0 25 25" to="360 25 25" />
+              </circle>
+            </svg>
+            ) : (
+              <FontAwesomeIcon className="text-6xl" icon={faUserCircle} />
+            )}
           </button>
         </Link>
       </div>
