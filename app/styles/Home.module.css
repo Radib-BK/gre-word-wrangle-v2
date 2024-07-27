@@ -121,7 +121,12 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
+  
+  #mainHead{
+    margin-top: 15rem;
+  }
+  
   .buttons {
     flex-direction: column;
     align-items: center;
