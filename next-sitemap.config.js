@@ -12,4 +12,11 @@ module.exports = {
   },
   changefreq: 'weekly',
   priority: 0.7,
+  exclude: ['/api/*'],
+  additionalPaths: async (config) => [
+    { loc: '/', changefreq: 'daily', priority: 1 },
+    { loc: '/game', changefreq: 'weekly', priority: 0.7 },
+    { loc: '/instructions', changefreq: 'monthly', priority: 0.5 },
+    { loc: '/profile', changefreq: 'weekly', priority: 0.8 },
+  ],
 }
