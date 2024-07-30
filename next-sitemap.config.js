@@ -1,11 +1,15 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-    siteUrl: 'https://wordwrangle.vercel.app', // Replace with your actual domain
-    generateRobotsTxt: true, // Generate robots.txt file
-    robotsTxtOptions: {
-    policies: [{ userAgent: '*', allow: '/' }],
-    },
-    changefreq: 'weekly', // Frequency of page changes
-    priority: 0.7, // Default priority of URLs
-  }
-  
+  siteUrl: 'https://wordwrangle.vercel.app',
+  generateRobotsTxt: true,
+  robotsTxtOptions: {
+    policies: [
+      { userAgent: '*', allow: '/' }
+    ],
+    additionalSitemaps: [
+      'https://wordwrangle.vercel.app/sitemap-0.xml'
+    ]
+  },
+  changefreq: 'weekly',
+  priority: 0.7,
+}
