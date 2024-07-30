@@ -53,20 +53,18 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-startup-image" href="/iconshangman.png" />
 
         {/* Schema Markup */}
-        <script type="application/ld+json">
-          {`
-          {
-            "@context": "http://schema.org",
-            "@type": "WebSite",
-            "name": "GRE Word Wrangle",
-            "url": "https://wordwrangle.vercel.app",
-            "sameAs": [
-              "https://www.facebook.com/Radib.bk",
-              "https://www.linkedin.com/in/radib-kabir-21683021a/"
-            ]
-          }
-          `}
-        </script>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: `
+        {
+          "@context": "http://schema.org",
+          "@type": "WebSite",
+          "name": "GRE Word Wrangle",
+          "url": "https://wordwrangle.vercel.app",
+          "sameAs": [
+            "https://www.facebook.com/Radib.bk",
+            "https://www.linkedin.com/in/radib-kabir-21683021a/"
+          ]
+        }
+        ` }} />
       </head>
       <body>
         {audioTemplate}
