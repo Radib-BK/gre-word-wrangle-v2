@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://wordwrangle.vercel.app/
+Host: https://wordwrangle.vercel.app
 
 # Sitemaps
 Sitemap: https://wordwrangle.vercel.app/sitemap.xml
