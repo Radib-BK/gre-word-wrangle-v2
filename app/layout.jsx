@@ -5,9 +5,12 @@ import BackgroundMusic from '../components/BackGroundMusic';
 
 export const metadata = {
   title: 'GRE Word Wrangle',
-  description: 'Enhance Your GRE Preparation with Engaging and Interactive Vocabulary Challenges',
+  description: 'Enhance Your GRE Preparation with Engaging and Interactive Vocabulary Word Challenges',
   icons: {
-    icon: "/iconshangman.png",
+    icon: [
+      { url: '/iconshangman.png', sizes: 'any', type: 'image/png' },
+    ],
+    apple: '/iconshangman.png',
   },
 };
 
