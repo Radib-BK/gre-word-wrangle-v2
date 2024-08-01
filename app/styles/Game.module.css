@@ -128,7 +128,7 @@
   height: 24rem;
   width: 20rem;
   fill: transparent;
-  stroke: #fff;
+  stroke: #ffffff;
   stroke-width: 4px;
   stroke-linecap: round;
   flex-shrink: 0;
@@ -137,6 +137,27 @@
 .bodyPart {
   display: none;
   transition: opacity 0.3s ease;
+}
+
+/* Target all .bodyPart elements except the first one */
+.bodyPart:not(:first-of-type) {
+  animation: wriggle 2s infinite;
+  animation-timing-function:cubic-bezier(0.68, -0.55, 0.265, 1.55)
+}
+
+@keyframes wriggle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-0.4px);
+  }
+  50% {
+    transform: translateY(0.4px);
+  }
+  75% {
+    transform: translateY(-0.4px);
+  }
 }
 
 .content {

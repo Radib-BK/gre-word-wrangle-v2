@@ -1345,10 +1345,11 @@ const check = useCallback((character) => {
       </div>
       <div className={styles.gameBox}>
       <svg className={`${styles.figure} animate__animated animate__fadeIn`}>
-        <line x1="25%" y1="5%" x2="65%" y2="5%"/>
-        <line x1="65%" y1="5%" x2="65%" y2="20%"/>
-        <line x1="25%" y1="5%" x2="25%" y2="95%"/>
-        <line x1="5%" y1="95%" x2="45%" y2="95%"/>
+        <line x1="25%" y1="5%" x2="65%" y2="5%" style={{stroke:"#d2691e"}}/>
+        <line x1="65%" y1="5%" x2="65%" y2="20%" style={{stroke:"#d2691e"}}/>
+        <line x1="25%" y1="5%" x2="25%" y2="95%" style={{stroke:"#d2691e"}}/>
+        <line x1="38%" y1="5%" x2="25%" y2="16.5%" style={{stroke:"#592720"}}/>
+        <line x1="5%" y1="95%" x2="45%" y2="95%" style={{stroke:"#592720", strokeWidth: "7px"}}/>
         <circle r="10%" cx="65%" cy="30%" className={styles.bodyPart}/>
         <line x1="65%" y1="40%" x2="65%" y2="60%" className={styles.bodyPart} />
         <line x1="50%" y1="40%" x2="65%" y2="50%" className={styles.bodyPart} />
