@@ -416,7 +416,7 @@ const wordList = [
   { word: 'gouge', meaning: 'An impression in a surface, as made by a blow (n)' },
   { word: 'gravel', meaning: 'Rock fragments and pebbles (n)' },
   { word: 'gravity', meaning: 'The force of attraction between all masses in the universe (n)' },
-  { word: 'grazing', meaning: 'The act of grazing (n)' },
+  { word: 'grazing', meaning: 'land where farm animals feed on grass (n)' },
   { word: 'gregarious', meaning: 'Temperamentally seeking and enjoying the company of others (adj)' },
   { word: 'grill', meaning: 'A framework of metal bars used as a partition or a grate (n)' },
   { word: 'grovel', meaning: 'Show submission or fear (v)' },
@@ -1101,9 +1101,9 @@ const GREWordWrangle = () => {
 
   const fetchUserData = async () => {
     try {
-      const userId = localStorage.getItem('userId');
-      if (!userId) return;
-      const { data } = await axios.get(`/api/getUser?userId=${userId}`);
+      const gwwUserId = localStorage.getItem('gwwUserId');
+      if (!gwwUserId) return;
+      const { data } = await axios.get(`/api/getUser?gwwUserId=${gwwUserId}`);
       setHighestStreak(data.highestStreak);
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -1111,10 +1111,10 @@ const GREWordWrangle = () => {
   };
 
   useEffect(() => {
-    let userId = localStorage.getItem('userId');
-    if (!userId) {
-      userId = 'user-' + Math.random().toString(36).substr(2, 9);
-      localStorage.setItem('userId', userId);
+    let gwwUserId = localStorage.getItem('gwwUserId');
+    if (!gwwUserId) {
+      gwwUserId = 'user-' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('gwwUserId', gwwUserId);
     }
     initializeWord();
     fetchUserData();
@@ -1196,8 +1196,8 @@ const GREWordWrangle = () => {
     setStreak(streak + 1);
     if (streak > highestStreak) {
       setHighestStreak(streak);
-      const userId = localStorage.getItem('userId');
-      axios.post('/api/updateUser', { userId, highestStreak: streak });
+      const gwwUserId = localStorage.getItem('gwwUserId');
+      axios.post('/api/updateUser', { gwwUserId, highestStreak: streak });
       // console.log("2nd update called");
     }
     setIncorrectCount((prevCount) => { // This call is now outside the nested callback
@@ -1213,8 +1213,8 @@ const GREWordWrangle = () => {
       setGameState('lost');
       hasUpdatedRef.current = true;
       // console.log(hasUpdatedRef.current);
-      const userId = localStorage.getItem('userId');
-      axios.post('/api/updateUser', { userId, highestStreak: streak, wrongGuess: { word: selectedWordData?.word, meaning: selectedWordData?.meaning } })
+      const gwwUserId = localStorage.getItem('gwwUserId');
+      axios.post('/api/updateUser', { gwwUserId, highestStreak: streak, wrongGuess: { word: selectedWordData?.word, meaning: selectedWordData?.meaning } })
         .then(() => {
           // console.log("first update called", hasUpdatedRef.current);
         })

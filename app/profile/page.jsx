@@ -13,13 +13,13 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const userId = localStorage.getItem('userId');
-      if (!userId) {
-        setLoading(false); // No userId, stop loading
+      const gwwUserId = localStorage.getItem('gwwUserId');
+      if (!gwwUserId) {
+        setLoading(false); // No gwwUserId, stop loading
         return;
       }
       try {
-        const { data } = await axios.get(`/api/getUser?userId=${userId}`);
+        const { data } = await axios.get(`/api/getUser?gwwUserId=${gwwUserId}`);
         setHighestStreak(data.highestStreak);
         setWrongGuesses(data.wrongGuesses);
       } catch (error) {

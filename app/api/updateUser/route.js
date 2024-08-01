@@ -5,14 +5,14 @@ import User from '../../../models/User';
 export async function POST(req) {
   await dbConnect();
 
-  const { userId, highestStreak, wrongGuess } = await req.json();
+  const { gwwUserId, highestStreak, wrongGuess } = await req.json();
 
   try {
-    let user = await User.findOne({ userId });
-    // console.log('User:', user , 'userId:', userId, 'highestStreak:', highestStreak, 'wrongGuess:', wrongGuess);
+    let user = await User.findOne({ gwwUserId });
+    // console.log('User:', user , 'gwwUserId:', gwwUserId, 'highestStreak:', highestStreak, 'wrongGuess:', wrongGuess);
 
     if (!user) {
-      user = new User({ userId, highestStreak: highestStreak || 0 });
+      user = new User({ gwwUserId, highestStreak: highestStreak || 0 });
     } 
 
     user.highestStreak = Math.max(user.highestStreak, highestStreak);
